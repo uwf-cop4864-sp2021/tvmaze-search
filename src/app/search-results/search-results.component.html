@@ -1,11 +1,16 @@
 
 <ng-container *ngIf="currentSearchTerm">
     <p>Here are the results for {{currentSearchTerm}}</p>
+
+    <ng-container *ngIf="searchResults$ | async; else noResults">
+        <ul *ngFor="let show of searchResults$ | async">
+            <li><a href="{{show.url}}">{{show.name}}</a></li>
+            <img src="{{show.image}}" alt="{{show.name}}" />
+        </ul>
+    </ng-container>
 </ng-container>
 
-<ng-container *ngIf="searchResults$ | async">
-    <ul *ngFor="let show of searchResults$ | async">
-        <li>{{show.name}}</li>
-        <img src="{{show.image}}" alt="{{show.name}}" />
-    </ul>
-</ng-container>
+<ng-template #noResults>
+    <p>Loading...</p>
+</ng-template>
+
