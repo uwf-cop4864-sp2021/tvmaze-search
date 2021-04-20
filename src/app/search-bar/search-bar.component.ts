@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShowService } from '../show.service'
 
 @Component({
   selector: 'app-search-bar',
@@ -9,15 +10,18 @@ export class SearchBarComponent implements OnInit {
 
   searchTerm = ''; // Bound to the search field
 
-  constructor() { }
+  constructor(private showService: ShowService) { }
 
   ngOnInit(): void {
   }
 
+  // Form submit handler
   searchShow(event) {
     event.preventDefault();
     console.log("search happened");
     console.log(this.searchTerm);
+
+    this.showService.currentSearchTerm.next(this.searchTerm);
   }
 
 }
